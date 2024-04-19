@@ -16,18 +16,94 @@
   }
 }
 
+html {
+min-height: 100vh;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: #fff;
+}
+
+div{
+  overflow-x: hidden;
+}
+
+.animationBgDay {
+  background: linear-gradient(0deg, rgba(33, 119, 248, 0.63), rgba(53, 66, 253, 0.7), rgba(255, 255, 255, 0.603));
+  animation: gradientAnimationDay 15s linear infinite;
+}
+
+.animationBgNight {
+  background: linear-gradient(0deg, rgba(3, 0, 194, 0.63), rgba(129, 58, 0, 0.7), rgba(95, 0, 158, 0.664), rgba(24, 0, 41, 0.664));
+  animation: gradientAnimationNight 15s linear infinite;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+
+@keyframes gradientAnimationDay {
+  0% {
+    background-color: rgb(255, 243, 132);
+  }
+
+  25% {
+    background-color: #87d1f3;
+  }
+
+  50% {
+    background-color: #39d9e4;
+  }
+
+  100% {
+    background-color: rgb(255, 243, 132);
+  }
+}
+
+
+@keyframes gradientAnimationNight {
+  0% {
+    background-color: rgb(1, 6, 37);
+  }
+
+  25% {
+    background-color: #6303d1;
+  }
+
+  50% {
+    background-color: #014fb6;
+  }
+
+  100% {
+    background-color: rgb(1, 6, 37);
+  }
+}
+
+.bg-blur{
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  background-color: #ffffff15;
+  box-shadow: inset 0px 0px 20px #fff;
+}
+
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.fadeInAnimation{
+  animation: fadeIn 1s forwards;
+}
+
+
+.bg-semitransparent{
+  background-color: #ffffff25;
 }
