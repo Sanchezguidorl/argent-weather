@@ -1,10 +1,15 @@
 select{
-    background-color: #fff;
+    appearance: none;
     border-radius: 10px;
     text-align: center;
 }
 
-option{
-    color: #000;
+select:focus{
+    outline: dashed rgba(116, 159, 194, 0.678);
+}
 
+
+option{
+    background-color: rgb(255, 255, 255);
+    color: #000;
 }

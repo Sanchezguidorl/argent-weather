@@ -11,7 +11,7 @@ function WeatherPerHour() {
 
   return (
     <div
-      className={` transition-all duration-1000 overflow-y-auto min-h-96  h-fit w-full mt-2 flex flex-col-reverse md:flex-row flex-wrap items-center justify-between mb-10`}
+      className={` p-4 transition-all duration-1000 overflow-y-visible min-h-96  h-fit w-full mt-2 flex flex-col-reverse md:flex-row flex-wrap items-center justify-between mb-10`}
     >
 
       {
@@ -23,7 +23,7 @@ function WeatherPerHour() {
         <><div
           className={` ${
             weatherListStatudDay ? "flex-1 max-h-[500px] h-auto" : "max-h-0 h-0"
-          } flex justify-center items-center gap-2 pt-6 sm:pt-12 p-1 flex-wrap`}
+          } flex justify-center items-center gap-2 pt-6 sm:pt-8 p-1 flex-wrap`}
         >
           {weatherListStatudDay.wheatherDaySelectedList.map((status) => (
             <div

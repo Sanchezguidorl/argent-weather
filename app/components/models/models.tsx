@@ -41,24 +41,20 @@ export type weatherModel = {
   ];
 };
 
-
 //Define los datos que tendrá un objeto que contiene el clima por día de la semana identificado por el datetime
 export type weatherDayOfWeek = {
   dt: number;
 } & weatherModel;
 
 //Define los tipos de datos que contiene un objeto que almacena los estados del tiempo en atributos que definen el nombre del día al que pertenecen los estados almacenados en el array
-export type weatherByDayListModel ={
+export type weatherByDayListModel = {
   [day: string]: weatherDayOfWeek[];
-}
-;
-
-
+};
 
 //Define la clase WeaterDaysMapper que se encarga de procesar los datos recibidos a través de la consulta y devolver un diferente formato de datos dependiendo de la consulta realizada a traves de uno de sus métodos
 export class WeaterDaysMapper {
   //contiene la id de la entidad
-  public entityId: string=Date.now().toString();
+  public entityId: string = Date.now().toString();
   //Contiene los datos obtenidos desde la base de datos en un formato separado por atributos que definen ccada uno un día diferente
   public weatherMapped: weatherByDayListModel | null = null;
   //Contiene todos los estados del tiempo del tiempo de un día en específico
@@ -78,7 +74,6 @@ export class WeaterDaysMapper {
     if (props) {
       for (let weatherObject of props) {
         const dayName = getDayNameByDate(weatherObject.dt);
-
         if (!weatherByDay[dayName]) {
           weatherByDay[dayName] = [];
         }
@@ -98,45 +93,52 @@ export class WeaterDaysMapper {
   }
 
   //Recibe un datetime numérico y si es 0 retorna null de lo contrario retorna un array con estados del tiempo de un día específico
-  public selectDay(date: number, daySelectedAtc?:string|null): WeatherListStatusSelectedDay | null {
-    if(date===1){
+  public selectDay(
+    date: number,
+    daySelectedAtc?: string | null
+  ): WeatherListStatusSelectedDay | null {
+    if (date === 1) {
       const newWeatherList = new WeatherListStatusSelectedDay(
-        this.getAnotherDayOfMapper(daySelectedAtc?daySelectedAtc:"miércoles"),
-        this.getWeatherStatesByDay(this.getAnotherDayOfMapper(daySelectedAtc?daySelectedAtc:"miércoles"))
+        this.getAnotherDayOfMapper(
+          daySelectedAtc ? daySelectedAtc : "miércoles"
+        ),
+        this.getWeatherStatesByDay(
+          this.getAnotherDayOfMapper(
+            daySelectedAtc ? daySelectedAtc : "miércoles"
+          )
+        )
       );
 
       return newWeatherList;
     }
 
-
     const newWeatherList = new WeatherListStatusSelectedDay(
       getDayNameByDate(date),
       this.getWeatherStatesByDay(getDayNameByDate(date))
     );
-    if ( newWeatherList instanceof WeatherListStatusSelectedDay) {
+    if (newWeatherList instanceof WeatherListStatusSelectedDay) {
       return newWeatherList;
     } else {
       return null;
     }
   }
 
-
-  public getAnotherDayOfMapper=(day:string):string=>{
-const dayNamesList=[];
-if(this.weatherMapped){
-  for(let dayName in this.weatherMapped){
-    dayNamesList.push(dayName);
-  }
-}
-let dayFiltered="";
-for (const dayName of dayNamesList) {
-  if(dayName.toLowerCase()!=day.toLowerCase()){
-    dayFiltered=dayName;
-    break;
-  }
-}
-return dayFiltered;
-  }
+  public getAnotherDayOfMapper = (day: string): string => {
+    const dayNamesList = [];
+    if (this.weatherMapped) {
+      for (let dayName in this.weatherMapped) {
+        dayNamesList.push(dayName);
+      }
+    }
+    let dayFiltered = "";
+    for (const dayName of dayNamesList) {
+      if (dayName.toLowerCase() != day.toLowerCase()) {
+        dayFiltered = dayName;
+        break;
+      }
+    }
+    return dayFiltered;
+  };
 
   //Retorna una lista de estados objetos con estado del tiempo pero solo uno por cada día mapeado en lugar de el array de estados de ese día completo
   public getOneStateByDay = (): weatherDayOfWeek[] | [] => {
@@ -147,7 +149,7 @@ return dayFiltered;
           daysOfWeekFiltered.push(this.weatherMapped[key][5]);
         }
       }
-      return daysOfWeekFiltered;
+      return daysOfWeekFiltered.sort((a, b)=>a.dt - b.dt);
     }
     return [];
   };
@@ -156,7 +158,7 @@ return dayFiltered;
     if (this.weatherMapped) {
       const minTempArray: number[] =
         geWeathersListByDay(getDayNameByDate(date), this.weatherMapped)?.map(
-          (dayWeather:weatherModel) => dayWeather.main.temp_min
+          (dayWeather: weatherModel) => dayWeather.main.temp_min
         ) || [];
 
       return Math.round(Math.min(...minTempArray));
@@ -167,7 +169,7 @@ return dayFiltered;
     if (this.weatherMapped) {
       const maxTempArray: number[] =
         geWeathersListByDay(getDayNameByDate(date), this.weatherMapped)?.map(
-          (dayWeather:weatherModel) => dayWeather.main.temp_max
+          (dayWeather: weatherModel) => dayWeather.main.temp_max
         ) || [];
       return Math.round(Math.max(...maxTempArray));
     }
@@ -182,38 +184,31 @@ export class WeatherListStatusSelectedDay {
     this.wheatherDaySelectedList = data;
   }
 
-  public getHoursOfDay=()=>{
-    const hourdsFromDay:string[]=[];
-    if(this.wheatherDaySelectedList){
-      for(let day of this.wheatherDaySelectedList){
+  public getHoursOfDay = () => {
+    const hourdsFromDay: string[] = [];
+    if (this.wheatherDaySelectedList) {
+      for (let day of this.wheatherDaySelectedList) {
         hourdsFromDay.push(`${getDateByUnix(day.dt).getHours()}:00`);
       }
     }
     return hourdsFromDay;
-  }
+  };
 
-
-  public getTempPerHour=()=>{
-    const tempsFromDay:number[]=[];
-    if(this.wheatherDaySelectedList){
-      for(let day of this.wheatherDaySelectedList){
+  public getTempPerHour = () => {
+    const tempsFromDay: number[] = [];
+    if (this.wheatherDaySelectedList) {
+      for (let day of this.wheatherDaySelectedList) {
         tempsFromDay.push(Math.round(day.main.temp));
       }
     }
-    console.log(tempsFromDay)
     return tempsFromDay;
+  };
+}
+
+export class WheatherToday {
+  public weatherState: weatherModel[] = [];
+
+  public constructor(weatherState: weatherModel) {
+    this.weatherState.push(weatherState);
   }
-
-
-}
-
-
-export class WheatherToday{
-public weatherState:weatherModel[]=[];
-
-public constructor(weatherState:weatherModel){
-  this.weatherState.push(weatherState);
-}
-
-
 }

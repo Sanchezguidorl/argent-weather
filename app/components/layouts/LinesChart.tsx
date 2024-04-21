@@ -32,7 +32,6 @@ let temp:number[]= [];
 let days:string[]= [];
 
 if (weatherData){
-    console.log(weatherData.getTempPerHour())
      temp = weatherData.getTempPerHour();
      days = weatherData.getHoursOfDay();
 }
@@ -41,7 +40,7 @@ if (weatherData){
         labels: days,
         datasets: [
             {
-                label: 'Temperatura por hora',
+                label: 'Temperatura',
                 data: temp,
                 color:"#666",
                 tension: 0.5,

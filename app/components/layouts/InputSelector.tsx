@@ -3,6 +3,7 @@ import { ChangeEvent, useRef } from "react";
 import { city, departament, province } from "../models/models";
 import { useSelectionInputContext } from "./../contexts/SelectInputProvider";
 import { useWeatherContext } from "../contexts/WeatherContextProvider";
+import { useWeatherNowContext } from "../contexts/WeatherNowContextProvider";
 
 function InputSelector({ provinces }: { provinces: province[] }) {
   const {
@@ -12,8 +13,9 @@ function InputSelector({ provinces }: { provinces: province[] }) {
     getCities,
     setLocationSelected,
   } = useSelectionInputContext();
-  const { getWeatherToday, getWeatherWeek, selectWeatherDay } =
+  const {getWeatherWeek, selectWeatherDay } =
     useWeatherContext();
+  const { getWeatherToday}= useWeatherNowContext();
   const departamentRef = useRef<HTMLSelectElement>(null);
   const cityRef = useRef<HTMLSelectElement | null>(null);
 
@@ -52,27 +54,30 @@ function InputSelector({ provinces }: { provinces: province[] }) {
 
   return (
     <div className="flex flex-col md:flex-row justify-center text-center gap-3">
-      <label className="flex flex-col flex-1 justify-center">
+      <label className="flex flex-col flex-1 justify-center p-1">
         <select
           defaultValue="default"
-          className=""
+          className=" text-white p-3 rounded-full bg-blur"
           onChange={handleChangeProvince}
         >
           <option value="default" disabled>
             --Selecciona una Provincia---
           </option>
           {provinces.map((province: province) => (
-            <option value={JSON.stringify(province)} key={province.id}>
+            <option value={JSON.stringify(province)} key={province.id}
+            >
+              
               {province.nombre.slice(0, 16)}
             </option>
           ))}
         </select>
       </label>
-      <label className="flex flex-col flex-1 justify-center">
+      <label className=" p-1 flex flex-col flex-1 justify-center">
         <select
           defaultValue="default"
           ref={departamentRef}
           onChange={handleChangeDepartament}
+          className=" text-white p-3 rounded-full bg-blur"
         >
           <option value="default" disabled>
             --Selecciona un Departamento---
@@ -85,12 +90,12 @@ function InputSelector({ provinces }: { provinces: province[] }) {
             ))}
         </select>
       </label>
-      <label className="flex flex-col flex-1 md:w-[20%] justify-center">
+      <label className=" p-1 flex flex-col flex-1 md:w-[20%] justify-center">
         <select
           defaultValue="default"
           ref={cityRef}
           onChange={handleChangeCity}
-          className=""
+          className=" text-white p-3 rounded-full bg-blur"
         >
           <option value="default" disabled>
             --Selecciona una Localidad---

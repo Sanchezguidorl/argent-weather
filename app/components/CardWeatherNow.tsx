@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import WeatherIcon from "/public/weatherNowIcon.svg"
-import { useWeatherContext } from "./contexts/WeatherContextProvider";
+import { useWeatherNowContext } from "./contexts/WeatherNowContextProvider";
 
 function CardWeatherNow() {
-  const { weatherToday } = useWeatherContext();
+  const {weatherToday} = useWeatherNowContext();
 
   return (
     <div className=" h-96 md:flex-1  w-full px-4 sm:px-0">
@@ -34,7 +34,7 @@ function CardWeatherNow() {
                   </p>
                   <p className=" text-xs mb-1">
                     Sensación térmica: {Math.ceil(weatherNow.main.feels_like)}{" "}
-                    C°
+                    °C
                   </p>
                 </div>
               </div>

@@ -20,7 +20,7 @@ function CardWeatherDay() {
   };
 
   return (
-    <div id={`${weatherWeek&&'WeatherContainer'}`} className=" mt-10 sm:mt-0  md:flex-1 h-96 overflow-y-auto relative">
+    <div id={`${weatherWeek&&'WeatherContainer'}`} className=" px-4 mt-8 sm:mt-0  md:flex-1 h-96 overflow-y-auto relative">
       { weatherWeek && dataDaysWeatherWeek ? (
         <>
         <div className="py-4 flex gap-2 flex-wrap justify-center">
@@ -45,11 +45,11 @@ function CardWeatherDay() {
                     alt=""
                   />
                 </div>
-                <p className="mt-2 text-sm lowercase">
-                  max {weatherWeek.getMaxTempDiary(dayData.dt)}°c
+                <p className="mt-2 text-sm">
+                  max {weatherWeek.getMaxTempDiary(dayData.dt)}°C
                 </p>
-                <p className=" text-sm lowercase">
-                  min {weatherWeek.getMinTempDiary(dayData.dt)}°c
+                <p className=" text-sm">
+                  min {weatherWeek.getMinTempDiary(dayData.dt)}°C
                 </p>
               </div>
             </div>
