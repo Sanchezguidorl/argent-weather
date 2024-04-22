@@ -1,4 +1,4 @@
-import React from 'react'
+"use client";
 import StarOpacityHandler from './StarOpacityHandler';
 
 function AppContainer({children}:{children:React.ReactNode}) {

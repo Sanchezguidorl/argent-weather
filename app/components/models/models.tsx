@@ -1,4 +1,4 @@
-import { geWeathersListByDay, getDateByUnix, getDayNameByDate } from "./utils";
+import { getDateByUnix, getDayNameByDate, getWeathersListByDay } from "./utils";
 
 //Define los datos que espera un objeto del tipo provincia
 export type province = {
@@ -157,7 +157,7 @@ export class WeaterDaysMapper {
   public getMinTempDiary = (date: number): number | undefined => {
     if (this.weatherMapped) {
       const minTempArray: number[] =
-        geWeathersListByDay(getDayNameByDate(date), this.weatherMapped)?.map(
+        getWeathersListByDay(getDayNameByDate(date), this.weatherMapped)?.map(
           (dayWeather: weatherModel) => dayWeather.main.temp_min
         ) || [];
 
@@ -168,7 +168,7 @@ export class WeaterDaysMapper {
   public getMaxTempDiary = (date: number): number | undefined => {
     if (this.weatherMapped) {
       const maxTempArray: number[] =
-        geWeathersListByDay(getDayNameByDate(date), this.weatherMapped)?.map(
+        getWeathersListByDay(getDayNameByDate(date), this.weatherMapped)?.map(
           (dayWeather: weatherModel) => dayWeather.main.temp_max
         ) || [];
       return Math.round(Math.max(...maxTempArray));

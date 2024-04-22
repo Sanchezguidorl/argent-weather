@@ -14,6 +14,6 @@ export const getDayNameByDate = (date: number) => {
   return dayName;
 };
 
-export const geWeathersListByDay=(dateName: string, dataList: weatherByDayListModel)=>{
+export const getWeathersListByDay=(dateName: string, dataList: weatherByDayListModel)=>{
 return dataList[dateName];
 }
