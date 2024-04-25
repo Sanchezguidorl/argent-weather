@@ -3,7 +3,7 @@ import StarOpacityHandler from './StarOpacityHandler';
 import { useState } from 'react';
 
 function AppContainer({children}:{children:React.ReactNode}) {
-const [isEarly, setIIsEarly]=useState<boolean>(new Date().getHours()>6 && new Date().getHours()>18);
+const [isEarly, setIIsEarly]=useState<boolean>(new Date().getHours()>6 && new Date().getHours()<18);
 
 
   return (
